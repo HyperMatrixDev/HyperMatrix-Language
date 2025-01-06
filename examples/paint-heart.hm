@@ -1,0 +1,61 @@
+
+system.keyPrint("windows", "m");
+system.wait(200);
+system.keyType("windows");
+system.wait(200);
+system.keyType("p", "a", "i", "n", "t");
+system.wait(200);
+system.keyType("enter");
+system.wait(200);
+system.mouseClickAt(system.screenWidth *.5, system.screenHeight *.5, "left"); // click at middle for chose the paint app
+system.wait(200);
+system.keyPrint("windows", "up"); // maximis
+system.keyPrint("windows", "up"); // maximis
+
+system.sleep(2000); // wait in low device
+
+
+var count = 1;
+var spacing = 0;
+var size = 500;
+spacing += size;
+
+
+var mx = system.screenWidth * .5 - spacing * .5 * (count - 1);
+var my = system.screenHeight * .6;
+
+size /= 35;
+system.keyType("p"); // select the pen
+
+//system.mouseClickAt(system.screenWidth / 54.8, system.screenHeight / 1.5, "left"); // click at the slider of pen size windows 11 only
+
+for (var h = 0; h < count; h++) {
+    var hs = h * spacing;
+    var x = mx + hs;
+    var y = my;
+
+    for (var t = 0; t <= Math.PI; t += 0.01) {
+        x = mx + hs + 16 * size * Math.sin(t) ** 3;
+        y = my - size * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+        system.mouseMove(x, y);
+        system.wait(1);
+
+        if (t == 0) system.mousePress("left");
+    }
+
+    for (var t = Math.PI - 0.01; t >= 0; t -= 0.01) {
+        x = mx + hs - 16 * size * Math.sin(t) ** 3;
+        y = my - size * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+        system.mouseMove(x, y);
+        system.wait(1);
+    }
+    
+    system.mouseRelease("left");
+}
+
+system.keyType("b"); // select the bucket
+
+for (var h = 0; h < count; h++) {
+    system.mouseClickAt(mx + h * spacing, my, "left");
+    system.wait(100);
+}
