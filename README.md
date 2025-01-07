@@ -16,7 +16,7 @@ For detailed grammar and features, see the [HM-Grammer.md](docs/HM-Grammer.md).
 
 ## Installation
 
-1. Download the latest release from the [Releases](https://github.com/YourUsername/HyperMatrix/releases) section.
+1. Download the latest release from the [Releases](https://github.com/HyperMatrixDev/HyperMatrix-Language/releases) section.
 2. Run the provided installer.
 3. Use the `hmatrix` command in your terminal to start coding:
 
