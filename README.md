@@ -27,6 +27,8 @@ For detailed grammar and features, see the [HM-Grammer.md](docs/HM-Grammer.md).
    hmatrix                    # Start an empty interactive session
    ```
 
+For more details about `hmatrix` and other commands, see the [commands.md](docs/commands.md).
+
 ---
 
 ## Getting Started
