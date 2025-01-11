@@ -31,6 +31,6 @@ By using or distributing the Software, you agree to abide by the terms outlined 
 
 ---
 
-**Contact Information**: For questions, contributions, or reporting issues, please contact: [dreamProgramer8691@hotmail.com] or text on telegram "@dreamProgrammer"
+**Contact Information**: For questions, contributions, or reporting issues, please contact: [dreamProgramer8691@hotmail.com] or text on telegram [dreamProgrammer](https://t.me/dreamProgrammer)
 
 2025 Hossein "DreamProgrammer". All rights reserved
