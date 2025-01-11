@@ -60,6 +60,7 @@ Explore the `examples/` directory for sample programs that demonstrate HyperMatr
 
 - **`hello-world.hm`**: A basic Hello World program.
 - **`paint-heart.hm`**: Drawing a heart in windows 11 paint.
+- **`tic-tac-toe.hm`**: Simple console tic tac toe game.
 
 ---
 
