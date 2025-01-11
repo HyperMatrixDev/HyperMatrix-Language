@@ -1,0 +1,82 @@
+const array board = [' ', ' ', ' ',
+                     ' ', ' ', ' ',
+                     ' ', ' ', ' '];
+
+const players = ["X", "O"];
+string player = players[0];
+
+const matrix winPatterns = M[0, 1, 2] | [3, 4, 5] | [6, 7, 8] // Rows
+                       	   |[0, 3, 6] | [1, 4, 7] | [2, 5, 8] // Columns
+                       	   |[0, 4, 8] | [2, 4, 6];            // Diagonals
+
+function main() {
+	while(true) {
+    	int L = -1;
+		var Loc = null;
+
+		terminal.clear();
+		drawBoard();
+
+		do {
+			println(F"#{Loc} is a wrong Location") when Loc is not null;
+			Loc = input(F"Player #{player} choose (1 - 9): ").trim();
+
+		} while (not (Loc.matches("\\d+") and ((Loc as int - 1 => L) > -1) and availableLocation(L)));
+
+		board[L] = player;
+
+		if (wins(player)) {
+            terminal.clear();
+            drawBoard();
+
+			println(F"Player #{player} Wins!");
+			break;
+
+		} else if (isTie()) {
+            terminal.clear();
+            drawBoard();
+
+			println("Game is Tie!");
+			break;
+		}
+
+		switchPlayer();
+	}
+}
+
+function switchPlayer() {
+	player = (players[1] when player ~= players[0] else players[0]);
+}
+
+boolean wins(string plyr) {
+	for (int i = 0; i < winPatterns.rows; i++) {
+		var pattern = winPatterns[i];
+        return when board[pattern[0]] === plyr and board[pattern[1]] === plyr and board[pattern[2]] === plyr : true;
+	}
+
+    return false;
+}
+
+boolean isTie() {
+	for (int i = 0; i < 9; i++)
+        if (board[i] === " ")
+            return false;
+
+    return true;
+}
+
+boolean availableLocation(int L) {
+	return (not (L < 0 or L > board.length)) and board[L] === " ";
+}
+
+function drawBoard() {
+	println(F`
+         #{board[0]} ║ #{board[1]} ║ #{board[2]}
+        ═══╬═══╬═══
+         #{board[3]} ║ #{board[4]} ║ #{board[5]}
+        ═══╬═══╬═══
+         #{board[6]} ║ #{board[7]} ║ #{board[8]}
+    `);
+}
+
+main();
