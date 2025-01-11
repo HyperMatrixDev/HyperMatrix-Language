@@ -161,7 +161,7 @@ function sum(int a, int b) {
 
 ## Literals
 
-- **String**: `'string'`, `"string"`, ``string``
+- **String**: `'string'`, `"string"`, `\`string\``
 - **Numeric**: `123`, `123.45`
 - **Intger**: `123`
 - **Float**: `123.45`
@@ -171,6 +171,114 @@ function sum(int a, int b) {
 - **Set**: `<1, 2, 3>`
 - **Matrix**: `M[1, 2] | [3, 4]`
 - **Object**: `{key: value}`
+
+## String Literals
+
+In HyperMatrix, string literals are versatile and designed to support a wide range of use cases, from simple text representation to dynamic, multi-line, and formatted strings.
+
+### **1. Basic Strings**
+Basic strings are enclosed in single (`'`) or double (`"`) quotes.
+```hypermatrix
+"Hello, World!"
+'Hello, World!'
+```
+
+### **2. Multi-Line Strings**
+Multi-line strings are enclosed in backticks (`) and support line breaks.
+```hypermatrix
+`This is a
+multi-line string.`
+```
+
+#### **Processing Rules**:
+1. **Trim Leading Spaces**:
+   - Lines are trimmed based on the lowest indentation level across all lines.
+2. **Remove New Lines**:
+   - The first and last lines' newlines are removed if they consist only of a newline character.
+
+Example:
+```hypermatrix
+`   Line 1
+    Line 2
+   Line 3`
+```
+Results in:
+```
+Line 1
+ Line 2
+Line 3
+```
+
+---
+
+## **Formatted Strings (F-Strings)**
+Formatted strings are prefixed with `F` and allow embedding expressions within placeholders (`#{}`).
+```hypermatrix
+F"Hello, #{name}!"
+F"#{2 + 2} is equal to 4."
+```
+
+### **Key Features**:
+- **Dynamic Expressions**: Embed expressions that are evaluated at runtime.
+- **Nesting**: Support for nested formatted strings.
+
+Example:
+```hypermatrix
+F"Result: #{F"#{2 * 3} + #{4}"}"
+```
+Output:
+```
+Result: 6 + 4
+```
+
+---
+
+## **Escape Sequences**
+String literals support common escape sequences:
+- `\n`: Newline
+- `\t`: Tab
+- `\r`: Carriage return
+- `\\`: Backslash
+- `\"`: Double quote
+- `\'`: Single quote
+
+Example:
+```hypermatrix
+"Line 1\nLine 2"
+```
+Output:
+```
+Line 1
+Line 2
+```
+
+---
+
+## **Common Errors**
+
+### **1. Improper Multi-Line String Delimiters**
+- Using `"` or `'` for multi-line strings causes an error.
+- **Solution**: Always use backticks (\`) for multi-line strings.
+
+### **2. Invalid Placeholders in F-Strings**
+- Placeholders must be valid expressions.
+```hypermatrix
+F"Invalid: #{undefinedVariable}"
+```
+This will throw an error if `undefinedVariable` is not defined.
+
+---
+
+## **Best Practices**
+- Use double quotes (`"`) for strings that include single quotes.
+- Use single quotes (`'`) for strings that include double quotes.
+- Prefer formatted strings (`F""`) for dynamic content.
+- Always validate placeholders in formatted strings to avoid runtime errors.
+
+---
+
+String literals in HyperMatrix provide powerful ways to work with text, ensuring flexibility and ease of use for both simple and complex scenarios.
+
 
 ## Patterns
 
@@ -1683,6 +1791,18 @@ HyperMatrix combines two key concepts:
 ---
 
 ## Release History
+
+### Version 1.0.1
+- **Release Date**: 2025-01-11
+- Addressed several known issues:
+  - Resolved class declaration conflicts in `while` scopes.
+  - Enhanced reverse assignment functionality for nested scopes.
+  - Improved support for `undefined` types with logical operators (`is` and `is not`).
+  - Fixed multiple evaluation of assignments to ensure consistent behavior.
+  - Corrected behavior of logical operators (`and` and `or`).
+  - Updated `break`, `continue`, and `return` statements to properly stop only the intended scope or loop.
+  - Refactored multi-line string processing for improved handling of backticks and better error reporting.
+- Added descriptive error messages for improper use of multi-line string delimiters.
 
 ### Version 1.0.0
 - **Release Date**: 2025-01-05
