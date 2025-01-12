@@ -58,10 +58,11 @@ For a full guide, check the [Getting Started documentation](docs/getting-started
 
 Explore the `examples/` directory for sample programs that demonstrate HyperMatrix’s features:
 
-- **`hello-world.hm`**: A basic Hello World program.
-- **`paint-heart.hm`**: Drawing a heart in windows 11 paint.
-- **`tic-tac-toe.hm`**: Simple console tic tac toe game.
+- **`hello-world.hm`**: A basic Hello World program. => by `HMDevTeam`
+- **`paint-heart.hm`**: Drawing a heart in windows 11 paint. => by `Sarah`
+- **`tic-tac-toe.hm`**: Simple console tic tac toe game. => by `Ali`
 
+[More](examples/)
 ---
 
 ## Feedback and Contributions
@@ -72,6 +73,19 @@ We welcome feedback and contributions! If you have suggestions, bug reports, or 
 - Share your ideas and feedback with us.
 
 Let’s build something amazing together!
+
+---
+
+## Share With Us
+
+We’d love to hear from you! Whether you have questions, suggestions, or just want to connect, here’s how you can reach us:
+
+- **Email**: [dreamProgramer8691@hotmail.com](mailto:dreamProgramer8691@hotmail.com)
+- **Telegram**: [t.me/dreamProgrammer](https://t.me/dreamProgrammer)
+- **GitHub Issues**: Open an issue in this repository.
+- **Twitter**: [@20_Hossein_07](https://x.com/20_Hossein_07)
+
+For now, all links connect directly to the project leader, but as we grow, these links will transition to community-managed platforms.
 
 ---
 
