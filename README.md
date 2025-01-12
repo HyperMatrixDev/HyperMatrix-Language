@@ -82,7 +82,7 @@ We’d love to hear from you! Whether you have questions, suggestions, or just w
 
 - **Email**: [dreamProgramer8691@hotmail.com](mailto:dreamProgramer8691@hotmail.com)
 - **Telegram**: [t.me/dreamProgrammer](https://t.me/dreamProgrammer)
-- **GitHub Issues**: Open an issue in this repository.
+- **GitHub Issues**: [Issues](https://github.com/HyperMatrixDev/HyperMatrix-Language/issues).
 - **Twitter**: [@20_Hossein_07](https://x.com/20_Hossein_07)
 
 For now, all links connect directly to the project leader, but as we grow, these links will transition to community-managed platforms.
