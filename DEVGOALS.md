@@ -6,8 +6,49 @@ Welcome to the **HyperMatrix Development Goals** page! Here, you'll find updates
 
 ## Releases
 
-### **Upcoming Version 1.0.2**
+### **Upcoming Version 1.0.4**
 > Details will be filled in soon with new features, fixes, and improvements currently in development.
+
+
+### **Version 1.0.3 (Completed)**  
+[View Release on GitHub](https://github.com/HyperMatrixDev/HyperMatrix-Language/releases/tag/v1.0.3)  
+
+#### Fixes and Improvements:
+
+- **Class Instance Properties**: Fixed shared properties issue; instances now have independent properties.  
+- **Function Display**: Corrected functions being shown as strings in the console.  
+- **`this` Scope Binding**: `this` now properly binds to local scope variables.  
+- **Interactive Mode**: Resolved issues with accessing instance variables in `-continue` mode.  
+- **Instance Representation**: Instances show `stringify` method output or default object representation.  
+- **Compiler/Lexer**: Faster stringification of values, better multi-line comment handling.  
+
+#### Archetype Enhancements:
+
+- **Memory Optimization**: Reduced memory usage with delayed unique archetype creation.  
+- **Enhanced Functionality**: View and define archetypes:
+  ```hypermatrix
+  println(identity "Matrix");  // Outputs archetype details
+  println("Matrix".__arche__); // String archetype object
+
+  string.archetype.reverse = () -> this.split('').reverse().join('');
+  println("Hyper".reverse()); // Outputs: repyH
+  ```
+#### New Features:
+
+- **Improved Imports**: Native module importing with aliasing:
+  ```hypermatrix
+  import os as OS
+  import "file.hm" as file
+  import {newFile, delFile} as file from "file.hm"
+  ```
+- **printf Function**: Added formatted string output:
+  ```hypermatrix
+  printf("Hello, %s!", "World"); // Output: Hello, World!
+  ```
+---
+
+### **Version 1.0.2 (Skipped)**  
+This version was skipped as it focused on internal refactoring of archetypes and optimization work. Changes were included in version 1.0.3 for public release.
 
 ---
 
