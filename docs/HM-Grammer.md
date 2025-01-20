@@ -511,7 +511,14 @@ unpack(arr) {
     println(_4_); // 5
 }
 ```
+
 ## Build-in Functions
+
+### **Printf**
+Prints a string with format like to the console without adding a newline.
+```hypermatrix
+printf(string, ...values);
+```
 
 ### **Print**
 Prints any value to the console without adding a newline.
@@ -602,6 +609,7 @@ More functions will be added soon to expand system capabilities.
 The `Terminal` object provides functionality for interacting with the command line interface.
 
 #### **Text Output**
+- `Terminal.printf(string, ...any)`: Prints text with format without adding a newline.
 - `Terminal.print(...any)`: Prints text without adding a newline.
 - `Terminal.println(...any)`: Prints text with a newline.
 
@@ -1722,10 +1730,19 @@ del <tuplepattern>
 ### **Syntax**
 ```hypermatrix
 import <string>
+import <string> as <identifier>
 import from <string>
-import <objectpattern> <string>
-import * <string>
-import <objectpattern> as <identifier> <string>
+import <objectpattern> from <string>
+import * from <string>
+import <objectpattern> as <identifier> from <string>
+
+// module importing
+import <identifier>
+import <identifier> as <identifier>
+import from <identifier>
+import <objectpattern> from <identifier>
+import * from <identifier>
+import <objectpattern> as <identifier> from <identifier>
 ```
 
 ## Export Statement
@@ -1746,22 +1763,120 @@ export <objectpattern>
 }
 ```
 
-
 # Archetypes
 
-Archetypes enable prototype-like behavior for both native and user-defined types.
-Current implementation supports basic archetype functionality.
+Archetypes enable prototype-like behavior for both native and user-defined types in HyperMatrix. They provide a flexible way to extend and customize functionality for any data type, including `string`, `int`, `float`, `array`, and user-defined classes.
 
-## Key Features:
-- Provides foundational prototype functionality.
-- Facilitates extension and customization of native and custom types.
-- Designed to simplify object behavior modeling.
+---
 
-## Implementation Notes:
-- To inspect the archetype of a value, use the `__arche__` property.
-- User-defined archetypes are under development and will be enhanced in future releases.
-- The current implementation is basic, but a more robust version is planned for upcoming updates.
+## **Key Features**
+- **Prototype Functionality**: Archetypes act as prototypes, offering foundational behavior that can be extended or customized.
+- **Memory Efficiency**: Unique archetypes (`uniquearche`) are created only when accessed, reducing memory usage.
+- **Simplified Behavior Modeling**: Archetypes make it easier to add or override functionality for both built-in and custom types.
 
+---
+
+## **How Archetypes Work**
+
+### **Global vs. Unique Archetypes**
+- **Global Archetype (`archetype`)**: Defined at runtime and shared across all instances of a type.
+- **Unique Archetype (`uniquearche`)**: Defined on individual objects but only created when accessed.
+
+#### Example:
+```hypermatrix
+var str = "ok";
+
+// Initially, `str` does not have a unique archetype.
+println(str.length); // Accesses the global archetype.
+
+// Now, `str` has its own unique archetype.
+println(str.__arche__);
+```
+
+### **User-Defined Archetypes**
+Custom archetypes allow developers to extend or override behavior for built-in or user-defined types.
+
+#### Example:
+```hypermatrix
+// Adding methods to string and number archetypes
+string.archetype.print = () -> {
+    println(this);
+};
+
+number.archetype.half = () -> {
+    return this / 2;
+};
+
+"Hello".print();      // Output: Hello
+println((12).half());  // Output: 6
+```
+
+### **Class Archetypes**
+Archetypes can also be applied to user-defined classes, making it easy to share functionality across multiple instances.
+
+#### Example:
+```hypermatrix
+class Person {
+    var name;
+    var age;
+}
+
+Person.archetype.greet = () -> {
+    println("Hello, my name is " + this.name);
+};
+
+var john = new Person();
+john.name = "John";
+john.greet();  // Output: Hello, my name is John
+```
+
+---
+
+## **Inspecting Archetypes**
+
+Archetypes can be inspected in two ways:
+
+1. **Using the `identity` Unary Operator**:
+   ```hypermatrix
+   println(identity "Matrix"); // Displays an object with the value's archetype information.
+   ```
+
+2. **Accessing the `__arche__` Property**:
+   ```hypermatrix
+   println("Matrix".__arche__); // Outputs the archetype object for the string.
+   ```
+
+---
+
+## **Additional Examples**
+
+### **Overriding Archetypes**
+```hypermatrix
+string.archetype.reverse = () -> {
+    return this.split('').reverse().join('');
+};
+
+println("HyperMatrix".reverse()); // Output: xirtemrepyH
+```
+
+### **Default Behavior for New Types**
+```hypermatrix
+class Animal {
+    var species;
+}
+
+Animal.archetype.describe = () -> {
+    println("This is a " + this.species);
+};
+
+var dog = new Animal();
+dog.species = "Dog";
+dog.describe();  // Output: This is a Dog
+```
+
+---
+
+Archetypes in HyperMatrix provide powerful tools to customize and extend type behavior while maintaining performance and memory efficiency. They are designed to simplify complex object modeling and make the language more expressive.
 
 # HyperMatrix Programming Language
 
@@ -1791,6 +1906,22 @@ HyperMatrix combines two key concepts:
 ---
 
 ## Release History
+
+### Version 1.0.3
+- **Release Date**: 2025-01-20
+- Addressed several critical issues:
+  - Fixed shared property conflicts in class instances.
+  - Corrected `this` object scoping and function display in the console.
+  - Resolved issues with accessing instance variables in `-continue` mode.
+  - Improved instance representation: displays `stringify` method if available.
+  - Refactored archetypes for better memory optimization and performance.
+  - Enhanced compiler performance and improved multi-line comment handling.
+  - Introduced archetype enhancements, including user-defined archetypes and better value introspection via `identity` or `__arche__`.
+  - Added flexible import syntax with aliasing support.
+  - Introduced `printf(string, ...args)` for formatted output.
+
+### Version 1.0.2
+- Internal Version: This version was skipped as it focused on internal refactoring of archetypes and optimization work. Changes were included in version 1.0.3 for public release.
 
 ### Version 1.0.1
 - **Release Date**: 2025-01-11
