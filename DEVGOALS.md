@@ -6,9 +6,57 @@ Welcome to the **HyperMatrix Development Goals** page! Here, you'll find updates
 
 ## Releases
 
-### **Upcoming Version 1.0.4**
+### **Upcoming Version 1.0.5**
 > Details will be filled in soon with new features, fixes, and improvements currently in development.
 
+### **Version 1.0.4 (Completed)**  
+[View Release on GitHub](https://github.com/HyperMatrixDev/HyperMatrix-Language/releases/tag/v1.0.4)  
+
+#### Updates and Enhancements:
+
+### Shell Updates
+- **Removed Color Support**: Eliminated colors in the shell and error messages to prevent issues with unsupported terminals displaying garbled text.
+- **New Startup Message**: Added an informative startup message for a better user experience.
+
+### New `hmatrix` Command Flags
+- **`-time`**: Displays the execution time of the program.
+- **`-lib:<path>`**: Attaches a library folder for the current run.
+  - Example:
+    ```bash
+    hmatrix -lib:/path/to/lib myfile.hm
+    ```
+- **`-setup`**: Sets up a HyperMatrix project in the current folder or at a specified path.
+  - Example:
+    ```bash
+    hmatrix -setup:/path/to/project
+    ```
+- **`-settings:<path>`**: Attaches a settings file for the current run (will be fully functional after lexer updates).
+- **`-resource:<path>`**: Attaches resource files for the current run.
+- **`-help`**: Displays grammar documentation in Markdown format and exits the program.
+
+### Thematic `this` Fix
+- Fixed an issue where the `this` keyword could not be used within thematic blocks.
+
+---
+
+#### Development Goals:
+
+### Planned Enhancements
+
+- **Flag Usability**:
+  - Ensure all new flags (`-settings`, `-resource`) are fully functional and integrated with the lexer and runtime.
+
+- **Interactive Shell Improvements**:
+  - Enable persistent settings between `-continue` sessions.
+  - Add enhanced error messages for invalid flag usage.
+
+- **Documentation Improvements**:
+  - Include detailed examples for new flags in both user guides and built-in help (`-help`).
+
+- **Performance Tuning**:
+  - Optimize shell execution for faster startup and reduced resource usage.
+
+---
 
 ### **Version 1.0.3 (Completed)**  
 [View Release on GitHub](https://github.com/HyperMatrixDev/HyperMatrix-Language/releases/tag/v1.0.3)  
