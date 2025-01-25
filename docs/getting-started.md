@@ -65,6 +65,61 @@ After the file executes, you can:
 
 ---
 
+### **4. Setup a Project**
+Initialize a new HyperMatrix project in the current or specified directory:
+```bash
+hmatrix -setup
+hmatrix -setup:<path>
+```
+This creates a project structure and exits after setup is complete.
+
+**Example**:
+```bash
+hmatrix -setup:/path/to/project
+```
+
+---
+
+### **5. Attach a Library Folder**
+Attach a library folder for the current run:
+```bash
+hmatrix -lib:<path> <file>
+```
+**Example**:
+```bash
+hmatrix -lib:/path/to/lib hello-world.hm
+```
+
+---
+
+### **6. Attach Settings or Resources**
+
+#### Settings
+Attach a settings file for the current run (requires lexer updates for full functionality):
+```bash
+hmatrix -settings:<path> <file>
+```
+
+#### Resources
+Attach resource files for the current run:
+```bash
+hmatrix -resource:<path> <file>
+```
+**Example**:
+```bash
+hmatrix -resource:/path/to/resources hello-world.hm
+```
+
+---
+
+### **7. Display Grammar Documentation**
+Use the `-help` flag to display grammar documentation in Markdown format and exit:
+```bash
+hmatrix -help
+```
+
+---
+
 ## Writing Your First Program
 
 1. Create a file named `hello-world.hm`:
@@ -89,7 +144,7 @@ After the file executes, you can:
 HyperMatrix comes with several example programs to demonstrate its features. You can find them in the `examples/` directory:
 
 - **`hello-world.hm`**: A basic Hello World program.
-- **`paint-heart.hm`**: Drawing a heart in windows 11 paint.
+- **`paint-heart.hm`**: Drawing a heart in Windows 11 Paint.
 
 Run these examples using:
 ```bash
