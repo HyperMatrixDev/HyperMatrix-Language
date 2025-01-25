@@ -9,6 +9,7 @@ Welcome to **HyperMatrix**, a high-level programming language designed to combin
 - **Intuitive Syntax**: Learn and write code quickly with a clean and expressive syntax.
 - **Interactive Mode**: Experiment with your code in a live environment using the `-continue` flag or the `hmatrix` command.
 - **Powerful Tools**: Features like archetypes, watchers, defers, and unpacking make development easier and more productive.
+- **Customizable Commands**: Utilize a variety of `hmatrix` flags like `-setup`, `-lib`, `-time`, and more for project and runtime customization.
 
 For detailed grammar and features, see the [HM-Grammer.md](docs/HM-Grammer.md).
 
@@ -25,6 +26,7 @@ For detailed grammar and features, see the [HM-Grammer.md](docs/HM-Grammer.md).
    hmatrix <path>             # Run a file
    hmatrix -continue <path>   # Run a file and enter interactive mode
    hmatrix                    # Start an empty interactive session
+   hmatrix -setup:<path>      # Setup a HyperMatrix project
    ```
 
 For more details about `hmatrix` and other commands, see the [commands.md](docs/commands.md).
@@ -59,10 +61,12 @@ For a full guide, check the [Getting Started documentation](docs/getting-started
 Explore the `examples/` directory for sample programs that demonstrate HyperMatrix’s features:
 
 - **`hello-world.hm`**: A basic Hello World program. => by `HMDevTeam`
-- **`paint-heart.hm`**: Drawing a heart in windows 11 paint. => by `Sarah`
-- **`tic-tac-toe.hm`**: Simple console tic tac toe game. => by `Ali`
+- **`paint-heart.hm`**: Drawing a heart in Windows 11 Paint. => by `Sarah`
+- **`tic-tac-toe.hm`**: Simple console tic-tac-toe game. => by `Ali`
+- **`math-quiz.hm`**: Interactive math quiz program. => by `Reza`
 
 [More](examples/)
+
 ---
 
 ## Feedback and Contributions
@@ -82,7 +86,7 @@ We’d love to hear from you! Whether you have questions, suggestions, or just w
 
 - **Email**: [dreamProgramer8691@hotmail.com](mailto:dreamProgramer8691@hotmail.com)
 - **Telegram**: [t.me/dreamProgrammer](https://t.me/dreamProgrammer)
-- **GitHub Issues**: [Issues](https://github.com/HyperMatrixDev/HyperMatrix-Language/issues).
+- **GitHub Issues**: [Issues](https://github.com/HyperMatrixDev/HyperMatrix-Language/issues)
 - **Twitter**: [@20_Hossein_07](https://x.com/20_Hossein_07)
 
 For now, all links connect directly to the project leader, but as we grow, these links will transition to community-managed platforms.
