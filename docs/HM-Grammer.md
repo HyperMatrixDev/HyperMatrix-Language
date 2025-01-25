@@ -1907,6 +1907,19 @@ HyperMatrix combines two key concepts:
 
 ## Release History
 
+### Version 1.0.4
+- **Release Date**: 2025-01-25
+- Introduced significant shell updates and new command-line flags:
+  - Removed colors from shell output and error messages for better compatibility with all terminals.
+  - Added a `-time` flag to display the execution time of the program.
+  - Added a `-lib:<path>` flag for attaching library folders to the current run.
+  - Added a `-setup` flag for setting up a HyperMatrix project in the current or specified folder. Automatically exits after setup is complete.
+  - Added a `-settings:<path>` flag to attach settings for the current run (to be fully supported after lexer updates).
+  - Added a `-resource:<path>` flag to attach resources for the current run.
+  - Added a `-help` flag to display grammar documentation in Markdown format and exit the program. This flag takes precedence over others.
+- Improved the shell start message for a better user experience.
+- Fixed an issue where the `this` keyword could not be used inside thematic blocks.
+
 ### Version 1.0.3
 - **Release Date**: 2025-01-20
 - Addressed several critical issues:
