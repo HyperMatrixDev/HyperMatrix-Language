@@ -67,6 +67,13 @@
 - `instanceOf` / `not instanceOf` - Tests type relationships.
 - `is` / `is not` - Equality and inequality checks.
 
+### Multi-Word Keywords
+
+- `else if` - Alternative to `if` / `else`.
+- `not in` - Logical negation of `in`.
+- `is not` - Inequality check.
+- `not instanceOf` - Logical negation of `instanceOf`.
+
 ## Identifiers
 
 ### Description
@@ -165,6 +172,10 @@ function sum(int a, int b) {
 - **Numeric**: `123`, `123.45`
 - **Intger**: `123`
 - **Float**: `123.45`
+- **Hex**: `0x7B`
+- **Octal**: `0o173`
+- **Binary**: `0b01111011`
+- **Exponents**: `1e+10`
 - **Boolean**: `true`, `false`
 - **Array**: `[1, 2, 3]`
 - **Tuple**: `(1, 2, 3)`
@@ -212,7 +223,7 @@ Line 3
 ---
 
 ## **Formatted Strings (F-Strings)**
-Formatted strings are prefixed with `F` and allow embedding expressions within placeholders (`#{}`).
+Formatted strings are postfixed with `F` and allow embedding expressions within placeholders (`#{}`).
 ```hypermatrix
 F"Hello, #{name}!"
 F"#{2 + 2} is equal to 4."
@@ -234,23 +245,133 @@ Result: 6 + 4
 ---
 
 ## **Escape Sequences**
-String literals support common escape sequences:
-- `\n`: Newline
-- `\t`: Tab
-- `\r`: Carriage return
-- `\\`: Backslash
-- `\"`: Double quote
-- `\'`: Single quote
 
-Example:
-```hypermatrix
-"Line 1\nLine 2"
-```
-Output:
-```
-Line 1
-Line 2
-```
+### **1. Custom Escape Sequences**
+- `\define(name,value)` → Defines a custom escape sequence
+  - Example: `\define(smile,:))`
+  - Usage: `\smile` → `:))`
+
+### **2. Standard Escape Sequences**
+- `\0` → Null character
+- `\a` → Bell/alert
+- `\e` → Escape character
+- `\n` → Newline
+- `\t` → Tab
+- `\v` → Vertical tab
+- `\r` → Carriage return
+- `\b` → Backspace
+- `\f` → Form feed
+- `\'` → Single quote
+- `\"` → Double quote
+- `\\` → Backslash
+
+### **3. Unicode and Hex Escape Sequences**
+- `\uXXXX` → Unicode character
+  - Example: `\u2764` → ❤
+- `\xXX` / `\x{XXXX}` → Hexadecimal character
+  - Example: `\x41` → A
+
+### **4. Random Character Generation**
+- `\?;` → Random ASCII character
+- `\?{abcde};` → Random character from "abcde"
+- `\???` → 3 random characters
+- `\?{01}??` → Random binary with length 3
+
+### **5. Repeated Characters**
+- `\#Nchar;` → Repeat character N times
+  - Example: `\#5*;` → *****
+- `\#N{text};` → Repeat string N times
+  - Example: `\#3{hi};` → hihihi
+
+### **6. Color Formatting (Stack-based)**
+- `\|color|text` → Changes text color
+  - Example: `\|blue|Hello!`
+- `\|#RRGGBB|text` → Custom RGB text color
+- `\|###RRGGBB|text` → Custom background color
+- `\|<|` → Return to previous color (pop)
+- `\|<<|` → Reset all colors (clear stack)
+
+### **7. Control Characters**
+- `\cX` → Control character escape
+  - Example: `\cC` → `Ctrl+C`
+
+### **8. Maintained Unicode Characters**
+- `\M{name}` → Named Unicode character
+  - Example: `\M{heart}` → ❤
+  - If not found, returns `\uFFFF`
+
+### **9. Auto-incrementing Counter**
+- `\N;` → Auto-incrementing number
+  - Example: `"\N \N\N; \N"` → `"0 1 3"`
+  - A `;` after counting is ignored
+
+### **10. Binary Escape Sequences**
+- `\B{binary}` → Binary character
+  - Example: `\B{01000001}` → `A`
+
+### **11. Rainbow Text**
+- `\C[text]` → Displays text in rainbow colors
+
+### **12. Date and Time Formatting**
+- `\D{format}` → Date
+  - Example: `\D{yyyy-MM-dd}` → `2025-02-04`
+- `\T{format}` → Time
+  - Example: `\T{HH:mm:ss}` → `14:30:15`
+
+### **Error Handling**
+If an invalid escape sequence is used, an error message is thrown.
+
+---
+
+## Number Literal
+
+In HyperMatrix, the number literal formats supported, including integer, floating-point, and various base representations.
+
+---
+
+### **1. Integer and Floating-Point Numbers**
+
+Hyper Matrix supports both integer and floating-point numbers:
+
+- **Integer Numbers**: Whole numbers without a fractional part.
+  - Example: `42`, `-7`, `100000`
+- **Floating-Point Numbers**: Numbers with decimal points.
+  - Example: `3.14`, `-0.001`, `100.0`
+- **Numbers with Exponents**: Scientific notation representation.
+  - Example: `45e+2` (Equivalent to `4500`)
+
+---
+
+### **2. Binary Number Literals**
+
+Binary numbers are prefixed with `0b` and contain only `0` and `1`.
+
+- **Example:** `0b100110` (Equivalent to `38` in decimal)
+
+---
+
+### **3. Hexadecimal Number Literals**
+
+Hexadecimal numbers are prefixed with `0x` and use digits `0-9` and letters `a-f` or `A-F`.
+
+- **Example:** `0xFE14D5` (Equivalent to `16611605` in decimal)
+
+---
+
+### **4. Octal Number Literals**
+
+Octal numbers are prefixed with `0o` and use digits `0-7`.
+
+- **Example:** `0o521237` (Equivalent to `172319` in decimal)
+
+---
+
+### **5. Parsing Numbers**
+
+Hyper Matrix provides built-in parsing for both integer and floating-point values, ensuring accurate number representation and computations.
+
+- **Integer Parsing:** Converts valid integer literals to numerical values.
+- **Floating-Point Parsing:** Supports decimal and exponent notation.
 
 ---
 
@@ -382,7 +503,7 @@ function sum(int a = 1, int b = 2) {
 ```
 
 
-## Units (Experimental)
+## Units
 
 Units provide shorthand for multiplying numbers by predefined constants (e.g., `1m = m * 1`).
 
@@ -927,7 +1048,7 @@ println("Hello World");
 %%4 = 16    // Squaring
 ```
 
-### **Prefix Operators**
+### **Postfix Operators**
 ```hypermatrix
 4++ = 4 // Post-increment, value updates to 5 after use
 4-- = 4 // Post-decrement, value updates to 3 after use
@@ -1907,7 +2028,33 @@ HyperMatrix combines two key concepts:
 
 ## Release History
 
-### Version 1.0.4
+### Version 1.0.6 - Lexer & Parser Update
+- **Release Date**: 2025-02-5
+- Major improvements to the lexer and parser:
+  - Rebuilt the lexer for increased efficiency and flexibility.
+  - Rebuilt the parser to enhance usability and future-proofing.
+  - Prepared the lexer and parser for upcoming syntax settings updates.
+- Expanded numeric support:
+  - Added binary (`0b100110`), hexadecimal (`0xfe14d5`), octal (`0o521237`), and exponent (`45e+2`) number lexing.
+- Introduced multi-word keywords:
+  - Now supports combinations like `is not`, `is null`, and `hash tag` as distinct keywords.
+- Added **static initializers** for classes:
+  - Use `static { }` blocks to initialize static variables in order.
+- **Unit expressions** are now stable:
+  - Support for numeric types with units (e.g., `45m`, `5.3cm`, `0b100110turn`).
+- Performance improvements:
+  - `switch` and `if` statements now execute **76% faster**.
+  - Fixed infinite loop caused by unclosed parentheses `(5`.
+- **AST Serialization Support**:
+  - Introduced `.hpr` format for **fast-loading** pre-parsed code.
+- **Expanded Escape Sequences**:
+  - Introduced advanced formatting, Unicode, and control characters.
+  - New capabilities include color formatting, text repetition, randomized characters, and date/time formatting.
+
+### Version 1.0.5
+- **Internal Version**: This version was skipped as it was dedicated to extensive lexer testing and validation. Improvements and optimizations from this phase have been incorporated into version 1.0.6 for public release.
+
+### Version 1.0.4 Shell Update
 - **Release Date**: 2025-01-25
 - Introduced significant shell updates and new command-line flags:
   - Removed colors from shell output and error messages for better compatibility with all terminals.
