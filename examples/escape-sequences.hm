@@ -1,0 +1,74 @@
+// Example program demonstrating all escape sequences in Hyper Matrix
+
+// Define a custom escape sequence
+"\define(Cpath,C:\)"
+
+// Print standard escape sequences
+println("Null: \0")
+println("Bell: \a")
+println("Escape: \e[0m")
+println("Newline:\nNext line")
+println("Tab:\tTabbed")
+println("Vertical Tab:\vVertical Tab")
+println("Carriage Return:\rOverwritten Line")
+println("Backspace: abc\b\bX")
+println("Form Feed:\fNew Page")
+println("Single Quote: \'")
+println("Double Quote: \"")
+println("Backslash: \\")
+
+// Unicode and Hex sequences
+println("Unicode Heart: \u2764")
+println("Hex Letter A: \x41")
+println("Hex Emoji: \x{1F600}")
+
+// Random character generation
+println("Random ASCII: \?;")
+println("Random from set: \?{abcde};")
+println("Three Random Chars: \???")
+println("Random Binary (length 3): \?{01}??")
+
+// Repeated characters
+println("Repeated Star: \#5*;")
+println("Repeated String: \#3{hi};")
+
+// Color formatting
+println("\|red|This is red text\|<|")
+println("\|#FF0000|This is RGB red text\|<|")
+println("\|##00FF00|Green background\|<<|")
+
+// Control characters
+println("Control+C Escape: \cC")
+
+// Named Unicode Characters
+println("Named Unicode Heart: \M{heart}")
+
+// Auto-incrementing counter
+println("Counter:\N; \N.Hyper \N.Matrix \N.Language \N;\N:new")
+println("Counter with ignored semicolon: \N \N\N; \N")
+
+// Binary character escape
+println("Binary Letter A: \B{01000001}")
+
+// Rainbow text
+println("\C[Colorful Text]")
+
+// Date and Time
+println("Today's Date: \D{yyyy-MM-dd}")
+println("Current Time: \T{HH:mm:ss}")
+
+// Using a defined escape sequence
+println("C Path: \Cpath")
+
+// Demonstrate parsing different number literals
+var binaryNum = 0b100110
+var hexNum = 0xFE14D5
+var octalNum = 0o521237
+var sciNum = 45e+2
+
+println("Binary: " + binaryNum)
+println("Hex: " + hexNum)
+println("Octal: " + octalNum)
+println("Scientific: " + sciNum)
+
+
