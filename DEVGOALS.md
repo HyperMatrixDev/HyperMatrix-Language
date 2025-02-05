@@ -6,8 +6,91 @@ Welcome to the **HyperMatrix Development Goals** page! Here, you'll find updates
 
 ## Releases
 
-### **Upcoming Version 1.0.5**
+### **Upcoming Version 1.0.7**
 > Details will be filled in soon with new features, fixes, and improvements currently in development.
+
+### **Version 1.0.6 - Lexer & Parser Update (Completed)**  
+[View Release on GitHub](https://github.com/HyperMatrixDev/HyperMatrix-Language/releases/tag/v1.0.6)  
+
+#### Updates and Enhancements:
+
+### Lexer and Parser Overhaul
+- **Rebuilt the lexer** for better efficiency and flexibility.
+- **Rebuilt the parser** to enhance usability and future-proofing.
+- **Prepared the lexer and parser** for upcoming syntax settings updates.
+
+### Expanded Numeric Support
+- Added lexing for:
+  - **Binary numbers** (`0b100110`)
+  - **Hexadecimal numbers** (`0xfe14d5`)
+  - **Octal numbers** (`0o521237`)
+  - **Numbers with exponents** (`45e+2`)
+
+### Multi-Word Keywords
+- Introduced flexible keyword combinations:
+  - `hash tag` (both words form a keyword, individually they are not)
+  - `is not` (each is a keyword, but together they form another keyword)
+  - `is null` (the first is a keyword, the second is not, but together they form a new keyword)
+
+### Static Initializers
+- Added **static initializers for classes**, similar to Java:
+  ```hypermatrix
+  class Example {
+      static {
+          println("Static block initialized");
+      }
+  }
+  ```
+  - Allows initializing static variables multiple times within a class.
+  - Executes in the order defined.
+
+### Stable Unit Expressions
+- **Unit expressions** are now stable and fully supported.
+- Works with numeric types:
+  ```hypermatrix
+  45m      // Integer with unit
+  5.3cm    // Float with unit
+  0b100110turn // Binary number with unit
+  ```
+
+### Performance Enhancements
+- Optimized `switch` and `if` statements, making execution **76% faster**.
+- Fixed infinite loop bug caused by unclosed parenthesis `(5`, which now properly throws an error.
+
+### AST Serialization Support
+- Added `.hpr` file format (**High Performance Load**), enabling **fast execution without lexing or parsing**.
+
+### Extended Escape Character Support
+- Vastly expanded escape sequences, including:
+  - **Unicode & Hexadecimal Support**: `\uXXXX`, `\xXX / \x{XXXX}`
+  - **Text Formatting & Colors**: `\|color|text`, `\|#RRGGBB|text`, `\|##RRGGBB|text`
+  - **Randomized Characters**: `\?;`, `\?{abcde};`, `\???`
+  - **Repetition & Control Sequences**: `\#Nchar;`, `\#N{text};`, `\D{format}`, `\T{format}`
+
+---
+
+### **Development Goals**
+
+### Upcoming Enhancements
+- **Syntax Settings Update**:
+  - Introduce customizable syntax configurations.
+  - Improve handling of user-defined syntax rules.
+
+- **Performance Optimization**:
+  - Reduce memory usage further by refining parser execution.
+  - Improve AST deserialization for even faster `.hpr` execution.
+
+- **Better Debugging Support**:
+  - Implement detailed error messages with suggested fixes.
+  - Expand interactive debugging capabilities.
+
+---
+
+Thank you for supporting HyperMatrix! Your feedback helps us refine and expand the language. Feel free to contribute suggestions or report issues on our [GitHub Issues](https://github.com/HyperMatrixDev/HyperMatrix-Language/issues).
+
+
+### **Version 1.0.5 (Skipped)**  
+This version was skipped as it was dedicated to extensive lexer testing and validation. Improvements and optimizations from this phase have been incorporated into version 1.0.6 for public release.
 
 ### **Version 1.0.4 (Completed)**  
 [View Release on GitHub](https://github.com/HyperMatrixDev/HyperMatrix-Language/releases/tag/v1.0.4)  
