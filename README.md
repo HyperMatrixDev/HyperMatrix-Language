@@ -1,3 +1,9 @@
+<div align="center">
+  <img src="https://raw.githubusercontent.com/HyperMatrixDev/HyperMatrix-Language/refs/heads/main/statics/LogoWithName.svg" alt="HyperMatrix" width="60%" />
+</div>
+
+<hr>
+
 # HyperMatrix
 
 Welcome to **HyperMatrix**, a high-level programming language designed to combine simplicity, flexibility, and innovation. Whether you’re a beginner or an experienced developer, HyperMatrix provides tools to make programming more intuitive and efficient.
