@@ -17,7 +17,7 @@ Welcome to **HyperMatrix**, a high-level programming language designed to combin
 - **Powerful Tools**: Features like archetypes, watchers, defers, and unpacking make development easier and more productive.
 - **Customizable Commands**: Utilize a variety of `hmatrix` flags like `-setup`, `-lib`, `-time`, and more for project and runtime customization.
 
-For detailed grammar and features, see the [HM-Grammer.md](docs/HM-Grammer.md).
+For detailed grammar and features, see the [HM-Grammar.md](docs/HM-Grammar.md).
 
 ---
 
