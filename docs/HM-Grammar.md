@@ -57,6 +57,7 @@
 - `not` - Logical negation.
 - `memoize` / `dememoize` - Manage cached function results.
 - `identity` - Returns its operand unchanged.
+- `void` - Evaluate an expression and return `undefined`.
 
 ### Binary Operators
 
@@ -166,11 +167,43 @@ function sum(int a, int b) {
   |~~~ End ~~~|
   ```
 
+## Lexer Tags
+Lexer tags allow defining **shortcuts** or **replacements** for identifiers at the **lexical analysis stage**. These tags work **before parsing**, replacing tokens with predefined values.
+
+### **Syntax**
+```hypermatrix
+#tag [identifier] :: [replacement tokens] ;;
+```
+- Tags replace occurrences of `[identifier]` with `[replacement tokens]`.
+- The replacement happens **before** parsing, ensuring performance efficiency.
+- Multi-line tags are supported until the `;;` delimiter is encountered.
+
+### **Examples**
+```hypermatrix
+#tag PRINT HELLO :: println("Hello"); ;;
+#tag Name :: "Lexer Tags";;
+#tag is yes :: == true;;
+#tag is no   :: == false;;
+
+PRINT HELLO  // Expands to: println("Hello");
+PRINT        HELLO  // Still expands to println("Hello");
+
+println(Name); // Expands to: println("Lexer Tags");
+
+println(true is yes); // Expands to: println(true == true);
+println(false is no); // Expands to: println(false == false);
+```
+
+**Important Notes:**
+- **Priority**: Lexer tags take precedence over regular identifiers and keywords. If a tag shares a name with a keyword, the tag will be used instead.
+- **Overwriting**: Defining a tag with an existing name will overwrite the previous definition.
+- **Scope**: Tags work at the **lexical analysis stage** and do **not affect runtime behavior**.
+
 ## Literals
 
-- **String**: `'string'`, `"string"`, `\`string\``
+- **String**: `'string'`, `"string"`, `` `string` ``, `\\string\\`
 - **Numeric**: `123`, `123.45`
-- **Intger**: `123`
+- **Integer**: `123`
 - **Float**: `123.45`
 - **Hex**: `0x7B`
 - **Octal**: `0o173`
@@ -195,10 +228,20 @@ Basic strings are enclosed in single (`'`) or double (`"`) quotes.
 ```
 
 ### **2. Multi-Line Strings**
-Multi-line strings are enclosed in backticks (`) and support line breaks.
+Multi-line strings are enclosed in backticks (`` ` ``) and support line breaks.
 ```hypermatrix
 `This is a
 multi-line string.`
+```
+
+### **3. Raw Strings**
+- `\\...\\` → Raw string mode (no escape processing)
+  - Example: `\\-?\d+(\.\d+)?\\` → `-?\d+(\.\d+)?`
+  - Supports multi-line input, skipping leading/trailing newlines
+
+Raw strings are strings without any escape sequences, and support line breaks.
+```hypermatrix
+\\This is raw \ text \t no escapes \n \\
 ```
 
 #### **Processing Rules**:
@@ -220,9 +263,33 @@ Line 1
 Line 3
 ```
 
+### **Common Errors**
+
+#### **1. Improper Multi-Line String Delimiters**
+- Using `"` or `'` for multi-line strings causes an error.
+- **Solution**: Always use backticks (\`) for multi-line strings.
+
+#### **2. Invalid Placeholders in F-Strings**
+- Placeholders must be valid expressions.
+```hypermatrix
+F"Invalid: #{undefinedVariable}"
+```
+This will throw an error if `undefinedVariable` is not defined.
+
+
+### **Best Practices**
+- Use double quotes (`"`) for strings that include single quotes.
+- Use single quotes (`'`) for strings that include double quotes.
+- Prefer formatted strings (`F""`) for dynamic content.
+- Always validate placeholders in formatted strings to avoid runtime errors.
+
 ---
 
-## **Formatted Strings (F-Strings)**
+String literals in HyperMatrix provide powerful ways to work with text, ensuring flexibility and ease of use for both simple and complex scenarios.
+
+---
+
+## Formatted Strings (F-Strings)
 Formatted strings are postfixed with `F` and allow embedding expressions within placeholders (`#{}`).
 ```hypermatrix
 F"Hello, #{name}!"
@@ -244,14 +311,30 @@ Result: 6 + 4
 
 ---
 
-## **Escape Sequences**
+## Escape Sequences
 
 ### **1. Custom Escape Sequences**
-- `\define(name,value)` → Defines a custom escape sequence
-  - Example: `\define(smile,:))`
+- `\def[key]{value}` → Defines a custom escape sequence.
+  - Example: `\def[smile]{:))}`
   - Usage: `\smile` → `:))`
 
-### **2. Standard Escape Sequences**
+### **2. Custom Escape Sequences with Indexing & Arguments**
+- Supports dynamic replacements with indexed placeholders (`@index`):
+  - Example: `\def[equal]{@0 == @1}`
+  - Usage:
+    ```hypermatrix
+    println(\equal{1}{0}); // 1 == 0
+    println(\equal{yes}{no}); // yes == no
+    ```
+- Supports optional argument placeholders (`{}`):
+  - Example: `\def[greet]{Hello, @0!}`
+  - Usage:
+    ```hypermatrix
+    println(\greet{John}); // Hello, John!
+    println(\greet{Alice}); // Hello, Alice!
+    ```
+
+### **3. Standard Escape Sequences**
 - `\0` → Null character
 - `\a` → Bell/alert
 - `\e` → Escape character
@@ -259,64 +342,94 @@ Result: 6 + 4
 - `\t` → Tab
 - `\v` → Vertical tab
 - `\r` → Carriage return
-- `\b` → Backspace
+- `\b` → Backspace (or binary escape when followed by digits)
 - `\f` → Form feed
 - `\'` → Single quote
 - `\"` → Double quote
 - `\\` → Backslash
+- `\{` → Left curly brace (`{`)
+- `\}` → Right curly brace (`}`)
+- `\[` → Left square bracket (`[`)
+- `\]` → Right square bracket (`]`)
+- `\s` → Non-breaking space (`\u00A0`)
+- `\z` → Zero Width Non-Joiner (`\u200C`)
 
-### **3. Unicode and Hex Escape Sequences**
+### **4. Unicode and Hex Escape Sequences**
 - `\uXXXX` → Unicode character
   - Example: `\u2764` → ❤
 - `\xXX` / `\x{XXXX}` → Hexadecimal character
   - Example: `\x41` → A
 
-### **4. Random Character Generation**
+### **5. Random Character Generation**
 - `\?;` → Random ASCII character
 - `\?{abcde};` → Random character from "abcde"
 - `\???` → 3 random characters
 - `\?{01}??` → Random binary with length 3
+- `\?8` → Generate 8 random characters
+- `\?8{01}` → Generate 8 random binary characters
 
-### **5. Repeated Characters**
+### **6. Repeated Characters**
 - `\#Nchar;` → Repeat character N times
   - Example: `\#5*;` → *****
 - `\#N{text};` → Repeat string N times
   - Example: `\#3{hi};` → hihihi
 
-### **6. Color Formatting (Stack-based)**
+### **7. Color Formatting (Stack-based)**
 - `\|color|text` → Changes text color
   - Example: `\|blue|Hello!`
 - `\|#RRGGBB|text` → Custom RGB text color
 - `\|###RRGGBB|text` → Custom background color
 - `\|<|` → Return to previous color (pop)
 - `\|<<|` → Reset all colors (clear stack)
+- `\C[...]` → Displays text in rainbow colors
+- `\C2{...}{...}[...]` → Alternating colors every 2 characters
 
-### **7. Control Characters**
+### **8. Control Characters**
 - `\cX` → Control character escape
   - Example: `\cC` → `Ctrl+C`
 
-### **8. Maintained Unicode Characters**
+### **9. Maintained Unicode Characters**
 - `\M{name}` → Named Unicode character
   - Example: `\M{heart}` → ❤
   - If not found, returns `\uFFFF`
+- **Expanded Unicode Support (Examples)**:
+  - `≈`, `≠`, `≥`, `≤`, `∞`, `√`, `©`, `®`, `™`, `♥`, `♫`, `✔`, `❌`
+  - `α`, `β`, `γ`, `π`, `θ`, `σ`, `ω`, `←`, `↑`, `→`, `↓`, `⇐`, `⇒`
+  - `♔`, `♕`, `♖`, `♗`, `♘`, `♙`, `😀`, `😂`, `🚀`, `🔥`, `⚠`
 
-### **9. Auto-incrementing Counter**
-- `\N;` → Auto-incrementing number
-  - Example: `"\N \N\N; \N"` → `"0 1 3"`
+### **10. Auto-incrementing Counter**
+- `\I;` → Auto-incrementing number
+  - Example: `"\I \I\I; \I"` → `"0 1 3"`
   - A `;` after counting is ignored
 
-### **10. Binary Escape Sequences**
-- `\B{binary}` → Binary character
-  - Example: `\B{01000001}` → `A`
-
-### **11. Rainbow Text**
-- `\C[text]` → Displays text in rainbow colors
+### **11. Binary, Octal, and Hexadecimal Escape Sequences**
+- `\b{binary}` → Binary character (if followed by binary digits, otherwise backspace)
+  - Example: `\b{01000001}` → `A`
+- `\0` / `\124` → Octal character
+  - Example: `\47;21` → Reads until hitting `;` or a non-octal digit
+- `\x{41}` → Hex character
+  - Example: `\x41` → `A`
 
 ### **12. Date and Time Formatting**
-- `\D{format}` → Date
-  - Example: `\D{yyyy-MM-dd}` → `2025-02-04`
-- `\T{format}` → Time
-  - Example: `\T{HH:mm:ss}` → `14:30:15`
+- `\D[format]` → Date
+  - Example: `\D[yyyy-MM-dd]` → `2025-02-04`
+- `\T[format]` → Time
+  - Example: `\T[HH:mm:ss]` → `14:30:15`
+
+
+### **Using Escape Outside String**
+Escape sequences can also be used **outside of strings**, treating them as direct literals. This allows for more concise and readable code.
+
+#### **Usage Example:**
+```hypermatrix
+println(\n); // Prints a newline
+println(\t); // Prints a tab space
+println(\u2764); // Prints a Unicode heart (❤)
+```
+- Any escape sequence can be used without wrapping it in a string.
+- This helps in cases where escape characters are frequently used without requiring explicit quotation.
+- Useful for formatting, control characters, and inline symbols.
+
 
 ### **Error Handling**
 If an invalid escape sequence is used, an error message is thrown.
@@ -374,32 +487,6 @@ Hyper Matrix provides built-in parsing for both integer and floating-point value
 - **Floating-Point Parsing:** Supports decimal and exponent notation.
 
 ---
-
-## **Common Errors**
-
-### **1. Improper Multi-Line String Delimiters**
-- Using `"` or `'` for multi-line strings causes an error.
-- **Solution**: Always use backticks (\`) for multi-line strings.
-
-### **2. Invalid Placeholders in F-Strings**
-- Placeholders must be valid expressions.
-```hypermatrix
-F"Invalid: #{undefinedVariable}"
-```
-This will throw an error if `undefinedVariable` is not defined.
-
----
-
-## **Best Practices**
-- Use double quotes (`"`) for strings that include single quotes.
-- Use single quotes (`'`) for strings that include double quotes.
-- Prefer formatted strings (`F""`) for dynamic content.
-- Always validate placeholders in formatted strings to avoid runtime errors.
-
----
-
-String literals in HyperMatrix provide powerful ways to work with text, ensuring flexibility and ease of use for both simple and complex scenarios.
-
 
 ## Patterns
 
@@ -526,20 +613,37 @@ println(5unit); // "cmcmcmcmcm"
 
 ## Error Handling (In Progress)
 
-Error handling is in its early stages and currently supports basic Syntax and Runtime Errors. Future updates will include custom exceptions and error propagation mechanisms.
+Error handling in HyperMatrix is still in development, currently supporting basic **Syntax Errors** and **Runtime Errors**. Future updates will introduce more robust exception handling, error propagation, and custom error definitions.
 
-```hypermatrix
-try {
-    var result = 10 / 0;
-} catch (e) {
-    println("Error: " + e.message);
-} finally {
-    println("End of error handling.");
-}
+### **Current Error Types:**
+- **Syntax Errors**: Raised when code contains invalid syntax.
+  - Example: `Unexpected token '}' at line 3`
+- **Runtime Errors**: Occur when executing invalid operations, such as type mismatches or undefined variables.
+  - Example: `Undefined variable 'x' used at line 5`
+- **Type Errors**:
+  - Occur when attempting invalid type conversions or assignments.
+  - Example: `Cannot assign 'string' to 'number' variable`
+- **IO Errors**:
+  - Raised when file operations fail.
+  - Example: `File 'config.hm' not found in directory`
+- **Index Errors**:
+  - Triggered when accessing out-of-range indices.
+  - Example: `Index 10 is out of range for list of size 5`
+- **Argument Errors**:
+  - Occur when function arguments do not match expected values.
+  - Example: `Function 'sum' expects 2 arguments, but 3 were provided`
+- **Module Errors**:
+  - Raised when imported modules are missing or invalid.
+  - Example: `Module 'math' not found`
 
-throw "This is a runtime error";
-throw new Error("This is a custom error");
-```
+### **Planned Enhancements:**
+- **Custom Exception Types**: Allowing developers to define and handle custom errors.
+- **Error Propagation**: Improved stack tracing and debugging support.
+- **Structured Error Objects**: Providing more detailed error messages and recovery options.
+- **Logging System**: Implementing structured logs for debugging purposes.
+- **Enhanced Debugging Mode**: Enabling verbose error reporting with detailed execution traces.
+
+Stay tuned for upcoming improvements to make error handling more robust and developer-friendly!
 
 ## Watchers (Experimental)
 
@@ -1142,6 +1246,8 @@ typeof true = boolean
 typeof "ok" = string
 copyof 1 = 1 // Creates a new pointer
 identity true = {"type": "boolean", "value": true}
+void 1 = undefined
+void "hello" = undefined
 ```
 
 ---
@@ -1155,13 +1261,13 @@ memoize 5 * 5 + 5 = 30 // Save for later
 memoize factorial(5) = 120 // Save for later
 ```
 
-### **Dememoization**
+### **DeMemoization**
 ```hypermatrix
 dememoize 5 * 5 + 5 = 30 // Recalculates and deletes saved result
 dememoize factorial(5) = 120 // Recalculates and deletes saved result
 ```
 
-## Defnitions
+## Definitions
 
 ### **Type Definition**
 
@@ -2028,8 +2134,28 @@ HyperMatrix combines two key concepts:
 
 ## Release History
 
+### Version 1.0.7 - Stability Update
+- **Release Date**: 2025-02-18
+- Focused on improving stability, error handling, and shell enhancements.
+- Fixed block parsing issues and improved identifier tracking in errors.
+- Refined error handling with **40% better efficiency** and more detailed messages.
+- Added new command-line flags:
+  - `-version` to display language version details.
+  - `-grammar` to retrieve the grammar file.
+  - Modified `-help` to provide a basic usage guide.
+- Improved **interactive mode**:
+  - `run` now repeats the last executed file if no arguments are provided.
+  - Shows usage guidance if no file has been previously executed.
+- Expanded **escape sequences**:
+  - Added `{}`, `[]`, `\s`, and `\z` as new escapes.
+  - Improved rainbow text rendering and structured color effects.
+- Performance enhancements:
+  - Parsing speed increased by reducing unnecessary checks.
+  - Optimized binary, octal, and hex escapes for efficiency.
+- Introduced over **100 Unicode character escapes**, including symbols, arrows, chess pieces, emojis, and more.
+
 ### Version 1.0.6 - Lexer & Parser Update
-- **Release Date**: 2025-02-5
+- **Release Date**: 2025-02-05
 - Major improvements to the lexer and parser:
   - Rebuilt the lexer for increased efficiency and flexibility.
   - Rebuilt the parser to enhance usability and future-proofing.
