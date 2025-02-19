@@ -18,7 +18,22 @@ hmatrix -setup:<path>         # Setup a HyperMatrix project at the specified pat
 hmatrix -settings:<path> <file> # Attach settings file for the current run (lexer update required)
 hmatrix -resource:<path> <file> # Attach resources for the current run
 hmatrix -help                 # Display grammar documentation and exit
+hmatrix -version              # Show version information (highest priority, overrides all other flags)
+hmatrix -grammar              # Retrieve the grammar file (priority 4)
+hmatrix -setup                # Setup a HyperMatrix project in the current directory (priority 3)
 ```
+
+---
+
+### Shell Enhancements
+- **New priority-based command-line options:**
+  - `-version` → Displays language version details (**priority 1**, overrides all other flags).
+  - `-help` → Shows basic usage information (**priority 2**).
+  - `-setup` → Initializes a project in the current or specified directory (**priority 3**).
+  - `-grammar` → Retrieves the full grammar file (**priority 4**).
+- **Interactive Mode Enhancements:**
+  - `run` without arguments repeats the last executed file.
+  - If no previous file exists, it displays proper usage guidance.
 
 ---
 
@@ -79,4 +94,11 @@ hmatrix -settings:/path/to/settings -resource:/path/to/resources hello-world.hm
 hmatrix -help
 ```
 
----
+#### Show the current version of HyperMatrix
+```bash
+hmatrix -version
+```
+
+#### Retrieve the grammar file
+```bash
+hmatrix -grammar
