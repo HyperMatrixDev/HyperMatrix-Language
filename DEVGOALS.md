@@ -6,8 +6,34 @@ Welcome to the **HyperMatrix Development Goals** page! Here, you'll find updates
 
 ## Releases
 
-### **Upcoming Version 1.0.7**
+### **Upcoming Version 1.0.8**
 > Details will be filled in soon with new features, fixes, and improvements currently in development.
+
+## **Version 1.0.7 - Stability Update (Completed)**
+[View Release on GitHub](https://github.com/HyperMatrixDev/HyperMatrix-Language/releases/tag/v1.0.7)
+
+#### **Fixes and Improvements:**
+- **Block Parsing Fixes**: Resolved issues related to incorrect parsing of block bodies.
+- **Enhanced Error Handling**:
+  - Improved identifier tracking in error messages.
+  - Error messages now provide more contextual details.
+  - Overall error handling efficiency improved by **40%**.
+- **Command Enhancements**:
+  - Added `-version` flag to display the current HyperMatrix version (**highest priority flag**).
+  - Added `-grammar` flag to retrieve the grammar file (**priority 4**).
+  - Modified `-help` flag to display a basic usage guide instead of the full grammar.
+- **Interactive Mode Enhancements**:
+  - `run` now repeats the last executed file when used without arguments.
+  - If no previous file exists, it shows correct usage guidance.
+- **Expanded Escape Sequences**:
+  - Added `\s` (non-breaking space) and `\z` (zero-width non-joiner).
+  - New escape characters `{}`, `[]`, and improved `\C[...]` rainbow text.
+- **Performance Optimizations**:
+  - Parsing speed significantly improved by removing redundant checks and backtracking.
+  - Optimized binary, octal, and hex escapes for efficiency.
+- **Unicode & Symbol Enhancements**:
+  - Introduced over **100 new Unicode character escapes**, including symbols, chess pieces, arrows, emojis, and more.
+
 
 ### **Version 1.0.6 - Lexer & Parser Update (Completed)**  
 [View Release on GitHub](https://github.com/HyperMatrixDev/HyperMatrix-Language/releases/tag/v1.0.6)  
