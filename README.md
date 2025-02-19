@@ -15,7 +15,7 @@ Welcome to **HyperMatrix**, a high-level programming language designed to combin
 - **Intuitive Syntax**: Learn and write code quickly with a clean and expressive syntax.
 - **Interactive Mode**: Experiment with your code in a live environment using the `-continue` flag or the `hmatrix` command.
 - **Powerful Tools**: Features like archetypes, watchers, defers, and unpacking make development easier and more productive.
-- **Customizable Commands**: Utilize a variety of `hmatrix` flags like `-setup`, `-lib`, `-time`, and more for project and runtime customization.
+- **Customizable Commands**: Utilize a variety of `hmatrix` flags like `-setup`, `-lib`, `-time`, `-grammar`, `-version`, and more for project and runtime customization.
 
 For detailed grammar and features, see the [HM-Grammar.md](docs/HM-Grammar.md).
 
@@ -33,6 +33,8 @@ For detailed grammar and features, see the [HM-Grammar.md](docs/HM-Grammar.md).
    hmatrix -continue <path>   # Run a file and enter interactive mode
    hmatrix                    # Start an empty interactive session
    hmatrix -setup:<path>      # Setup a HyperMatrix project
+   hmatrix -version           # Show version information
+   hmatrix -grammar           # Retrieve the grammar file
    ```
 
 For more details about `hmatrix` and other commands, see the [commands.md](docs/commands.md).
