@@ -7,7 +7,7 @@ Welcome to **HyperMatrix**, a high-level programming language designed to combin
 ## Installation
 
 ### Step 1: Download the Installer
-1. Go to the [Releases](https://github.com/YourUsername/HyperMatrix/releases) section of the HyperMatrix repository.
+1. Go to the [Releases](https://github.com/HyperMatrixDev/HyperMatrix/releases) section of the HyperMatrix repository.
 2. Download the appropriate installer for your operating system.
 
 ### Step 2: Run the Installer
@@ -112,10 +112,18 @@ hmatrix -resource:/path/to/resources hello-world.hm
 
 ---
 
-### **7. Display Grammar Documentation**
-Use the `-help` flag to display grammar documentation in Markdown format and exit:
+### **7. Retrieve Grammar or Version Information**
+Use the `-help`, `-grammar`, and `-version` flags for reference documentation:
+
+- `-help` → Displays a basic usage guide.
+- `-grammar` → Retrieves the full grammar file.
+- `-version` → Shows version details (highest priority, overrides all other flags).
+
+**Example**:
 ```bash
 hmatrix -help
+hmatrix -grammar
+hmatrix -version
 ```
 
 ---
